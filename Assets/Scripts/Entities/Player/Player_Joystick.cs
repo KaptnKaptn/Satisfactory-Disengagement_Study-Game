@@ -337,7 +337,7 @@ public class Player_Joystick : MonoBehaviour
 
         lastJumpTime = 0f;
 
-        Vector2 force = new Vector2(runMaxSpeed * jumpSpeedDecrease, jumpHeight);
+        Vector2 force = new Vector2(runMaxSpeed * jumpSpeedDecrease, jumpHeight * forceMult);
         force.x *= dir;
         force.x *= forceMult;
 

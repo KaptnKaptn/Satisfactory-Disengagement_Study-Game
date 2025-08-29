@@ -1558,9 +1558,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   groundLayerIndex: 9
-  runMaxSpeed: 6
+  runMaxSpeed: 4
   movementSpeed: 0
-  acceleration: 2
+  acceleration: 4
   decceleration: 2
   accelInAir: 1
   deccelInAir: 1
@@ -1577,7 +1577,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   wallGravityMult: 0.01
-  wallJumpForceMult: 2.5
+  wallJumpForceMult: 2
   fallGravityMultiplier: 2
   fastFallGravityMultiplier: 4
   respawnOffset: 1
