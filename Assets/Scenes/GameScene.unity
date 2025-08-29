@@ -1561,9 +1561,9 @@ MonoBehaviour:
   runMaxSpeed: 6
   movementSpeed: 0
   acceleration: 2
-  decceleration: 1
+  decceleration: 2
   accelInAir: 1
-  deccelInAir: 0.5
+  deccelInAir: 1
   jumpPressed: 0
   jumpHeight: 5
   jumpHangMultiplier: 0.8
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   jumpHangMaxSpeedMult: 1.5
   jumpSpeedDecrease: 0.3
   doubleJumpForceMult: 1.2
-  jumpCD: -0.2
+  jumpCD: -0.1
   wallLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -2802,6 +2802,8 @@ MonoBehaviour:
   gameController: {fileID: 1577204227}
   goalPrefabList: []
   goalPrefab: {fileID: 8897814285793452036, guid: cf9edd9164a9c324c95b050b999096ea, type: 3}
+  gameDurationInSec: 0
+  backgroundChangeThreshold: 0
 --- !u!4 &994939972
 Transform:
   m_ObjectHideFlags: 0

@@ -135,8 +135,16 @@ public class Player_Joystick : MonoBehaviour
         #region Inputs
         if (!respawning)
         {
-            horizontalMovement = joystick.Horizontal;
-            verticalMovement = joystick.Vertical;
+            if (Application.isEditor)
+            {
+                horizontalMovement = Input.GetAxis("Horizontal");
+                verticalMovement = Input.GetAxis("Vertical");
+            }
+            else
+            {
+                horizontalMovement = joystick.Horizontal;
+                verticalMovement = joystick.Vertical;
+            }
         }
         #endregion
 
@@ -175,7 +183,7 @@ public class Player_Joystick : MonoBehaviour
 
         #region Jump
 
-        if (jumpPressed && lastJumpTime <= jumpCD)
+        if ((jumpPressed || Input.GetKeyDown(KeyCode.Space)) && lastJumpTime <= jumpCD)
         {
             if (!isJumping && lastGroundTime > 0)
             {
