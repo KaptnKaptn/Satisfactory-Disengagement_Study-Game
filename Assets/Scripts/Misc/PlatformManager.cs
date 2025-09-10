@@ -33,6 +33,7 @@ public class PlatformManager : MonoBehaviour
     [SerializeField] private GameObject baseTopPrefab;
 
     public int gameLength;
+    public bool setup;
 
 
     // Start is called before the first frame update
@@ -54,6 +55,8 @@ public class PlatformManager : MonoBehaviour
         {
             CalculatePlatform();
         }
+
+        setup = true;
     }
 
     // Update is called once per frame

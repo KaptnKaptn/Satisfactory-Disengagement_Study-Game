@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public LevelLoader levelLoader;
     public GameObject gameController;
     private PlatformManager platformManager;
     private GameStateManager gameStateManager;
-    private AudioManager audioManager;
+    [SerializeField] private AudioManager audioManager;
 
     public List<GameObject> goalPrefabList;
     public GameObject goalPrefab;
@@ -34,7 +35,13 @@ public class GameManager : MonoBehaviour
         // gameController = GameObject.FindGameObjectWithTag("GameController");
         //platformManager = gameController.GetComponent<PlatformManager>();
         //gameStateManager = gameController.GetComponent<GameStateManager>();
-        //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
+    void Start()
+    {
+        levelLoader = LevelLoader.instance;
+
+        audioManager.StartMusic();
     }
 
     void OnLevelWasLoaded(int level)
@@ -46,6 +53,7 @@ public class GameManager : MonoBehaviour
             gameStateManager = gameController.GetComponent<GameStateManager>();
 
             audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+            StartCoroutine(SetupGame());
         }
     }
 
@@ -86,7 +94,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene(1);
+        levelLoader.LoadGame();
+    }
+
+    private void StartGame()
+    {
+        levelLoader.StartGame();
+        audioManager.StartMusic();
+        gameStateManager.gameTime = 0;
     }
 
     public void PlaySFX(string clip)
@@ -107,5 +122,24 @@ public class GameManager : MonoBehaviour
     public void StopBackgroundMusic()
     {
         audioManager.StopBackgroundMusic();
+    }
+
+    private IEnumerator SetupGame()
+    {
+        while (!platformManager.setup)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        //yield return WaitUntilTrue(platformManager.setup);
+
+        StartGame();
+    }
+
+    private IEnumerator WaitUntilTrue(bool check)
+    {
+        while (!check)
+        {
+            yield return null;
+        }
     }
 }

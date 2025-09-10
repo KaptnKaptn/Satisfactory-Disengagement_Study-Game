@@ -18,9 +18,13 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         musicSource.clip = backgroundMusic;
-        musicSource.Play();
 
         sfxClips = audioClipsSetup.ToDictionary();
+    }
+
+    public void StartMusic()
+    {
+        musicSource.Play();
     }
 
     public void PlaySFX(string clipName)

@@ -1561,7 +1561,7 @@ MonoBehaviour:
   runMaxSpeed: 4
   movementSpeed: 0
   acceleration: 4
-  decceleration: 2
+  decceleration: 4
   accelInAir: 1
   deccelInAir: 1
   jumpPressed: 0
@@ -4290,7 +4290,7 @@ MonoBehaviour:
   horizontalPlatformPrefab: {fileID: 8897814285793452036, guid: 6141addc3ac61b04b8c9cd6e3f43cb6f, type: 3}
   verticalPlatformPrefab: {fileID: 8897814285793452036, guid: 4266afdd3f9a92a4ab59a09982b876b4, type: 3}
   goalPlatformPrefab: {fileID: 8897814285793452036, guid: c68ce797fa415964d927074c1d3d3347, type: 3}
-  platformCount: 15
+  platformCount: 30
   xRange: 1.65
   yMin: 1
   yMax: 1.7

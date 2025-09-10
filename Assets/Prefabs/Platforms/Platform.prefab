@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 380e1fc6332386741a4f4a5a9777b3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewBuffer: 0.5
+  viewBuffer: 2
 --- !u!251 &8105072345526588587
 PlatformEffector2D:
   m_ObjectHideFlags: 0
