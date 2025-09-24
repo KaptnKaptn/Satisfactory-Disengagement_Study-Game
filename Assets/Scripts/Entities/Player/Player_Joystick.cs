@@ -8,6 +8,7 @@ public class Player_Joystick : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D playerCollider;
     private Animator playerAnim;
+    private SpriteRenderer playerSprite;
 
     #endregion
 
@@ -37,12 +38,19 @@ public class Player_Joystick : MonoBehaviour
 
     [Header("Jump")]
     public bool jumpPressed;
+
+    public float baseJumpHeight;
+    public float maxJumpHeight;
+    public float jumpHeightAccel;
     public float jumpHeight;
+    public Color maxReached;
+
     public float jumpHangMultiplier;
     public float jumpHangThreshold;
     public float jumpHangAccelMult;
     public float jumpHangMaxSpeedMult;
     public float jumpSpeedDecrease;
+
     public float doubleJumpForceMult;
     public float jumpCD;
     private bool isJumping;
@@ -69,6 +77,7 @@ public class Player_Joystick : MonoBehaviour
     [Header("Animations")]
     [SerializeField] GameObject runAnimEffect;
     [SerializeField] GameObject jumpAnimEffect;
+    [SerializeField] GameObject jumpChargeEffect;
     [SerializeField] GameObject doubleJumpAnimEffect;
     [SerializeField] GameObject wallJumpAnimEffect;
 
@@ -82,8 +91,10 @@ public class Player_Joystick : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         playerCollider = this.GetComponent<Collider2D>();
         playerAnim = this.GetComponent<Animator>();
+        playerSprite = this.GetComponent<SpriteRenderer>();
 
         gravityScale = rb.gravityScale;
+        jumpHeight = baseJumpHeight;
     }
 
     // Start is called before the first frame update
@@ -183,8 +194,25 @@ public class Player_Joystick : MonoBehaviour
 
         #region Jump
 
-        if ((jumpPressed || Input.GetKeyDown(KeyCode.Space)) && lastJumpTime <= jumpCD)
+        if (Input.GetKey(KeyCode.Space))
         {
+            if (jumpHeight < maxJumpHeight)
+            {
+                jumpHeight += (Time.deltaTime * jumpHeightAccel);
+                jumpChargeEffect.SetActive(true);
+            }
+            else
+            {
+                jumpChargeEffect.SetActive(false);
+                playerSprite.color = maxReached;
+            }
+        }
+
+        if ((jumpPressed || Input.GetKeyUp(KeyCode.Space)) && lastJumpTime <= jumpCD)
+        {
+            jumpChargeEffect.SetActive(false);
+            playerSprite.color = Color.white;
+
             if (!isJumping && lastGroundTime > 0)
             {
                 Jump();
@@ -209,6 +237,7 @@ public class Player_Joystick : MonoBehaviour
 
             jumpCount++;
             jumpPressed = false;
+            jumpHeight = baseJumpHeight;
         }
 
         #endregion

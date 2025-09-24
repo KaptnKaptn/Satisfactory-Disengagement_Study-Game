@@ -32,9 +32,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // gameController = GameObject.FindGameObjectWithTag("GameController");
-        //platformManager = gameController.GetComponent<PlatformManager>();
-        //gameStateManager = gameController.GetComponent<GameStateManager>();
+        if (Application.isEditor)
+        {
+            gameController = GameObject.FindGameObjectWithTag("GameController");
+            platformManager = gameController.GetComponent<PlatformManager>();
+            gameStateManager = gameController.GetComponent<GameStateManager>();
+        }
     }
 
     void Start()
