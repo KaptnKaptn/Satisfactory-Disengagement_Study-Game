@@ -1002,7 +1002,7 @@ MonoBehaviour:
   - {fileID: 1878432938, guid: 63d2a80f2edb5f14791b584db1f206f4, type: 3}
   - {fileID: 954684073, guid: 63d2a80f2edb5f14791b584db1f206f4, type: 3}
   - {fileID: 1589078686, guid: 63d2a80f2edb5f14791b584db1f206f4, type: 3}
-  frameTime: 0.55
+  frameTime: 0.055
   looping: 1
 --- !u!1 &418118588
 GameObject:
@@ -1596,7 +1596,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -847768682, guid: 2f5400b4608df414fa914b9f64cf082a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1693,8 +1693,8 @@ MonoBehaviour:
   movementSpeed: 0
   acceleration: 4
   decceleration: 4
-  accelInAir: 1
-  deccelInAir: 1
+  accelInAir: 3
+  deccelInAir: 3
   jumpPressed: 0
   baseJumpHeight: 5
   maxJumpHeight: 8

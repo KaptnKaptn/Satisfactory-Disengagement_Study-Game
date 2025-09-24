@@ -194,7 +194,7 @@ public class Player_Joystick : MonoBehaviour
 
         #region Jump
 
-        if (Input.GetKey(KeyCode.Space))
+        if (grounded && Input.GetKey(KeyCode.Space))
         {
             if (jumpHeight < maxJumpHeight)
             {
