@@ -28,6 +28,16 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadScene(1));
     }
 
+    public void LoadMenu()
+    {
+        StartCoroutine(LoadScene(0));
+    }
+
+    public void LoadTutorial()
+    {
+        StartCoroutine(LoadScene(2));
+    }
+
     public void StartGame()
     {
         fadeAnim.SetTrigger("crossfade");
@@ -40,5 +50,13 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        if (level == 0)
+        {
+            StartGame();
+        }
     }
 }

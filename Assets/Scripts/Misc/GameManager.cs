@@ -34,9 +34,9 @@ public class GameManager : MonoBehaviour
 
         if (Application.isEditor)
         {
-            gameController = GameObject.FindGameObjectWithTag("GameController");
-            platformManager = gameController.GetComponent<PlatformManager>();
-            gameStateManager = gameController.GetComponent<GameStateManager>();
+            //gameController = GameObject.FindGameObjectWithTag("GameController");
+            //platformManager = gameController.GetComponent<PlatformManager>();
+            //gameStateManager = gameController.GetComponent<GameStateManager>();
         }
     }
 
@@ -57,6 +57,16 @@ public class GameManager : MonoBehaviour
 
             audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
             StartCoroutine(SetupGame());
+        }
+
+        if (level == 2)
+        {
+            gameController = GameObject.FindGameObjectWithTag("GameController");
+            //platformManager = gameController.GetComponent<PlatformManager>();
+            gameStateManager = gameController.GetComponent<GameStateManager>();
+
+            audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+            StartCoroutine(SetupTutorial());
         }
     }
 
@@ -100,6 +110,11 @@ public class GameManager : MonoBehaviour
         levelLoader.LoadGame();
     }
 
+    public void LoadTutorial()
+    {
+        levelLoader.LoadTutorial();
+    }
+
     private void StartGame()
     {
         levelLoader.StartGame();
@@ -133,16 +148,24 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
         }
-        //yield return WaitUntilTrue(platformManager.setup);
 
         StartGame();
     }
 
-    private IEnumerator WaitUntilTrue(bool check)
+    private IEnumerator SetupTutorial()
     {
-        while (!check)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(1f);
+
+        StartGame();
+    }
+
+    public void LoadMenu()
+    {
+        levelLoader.LoadMenu();
+        Destroy(this.gameObject);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

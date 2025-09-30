@@ -20,6 +20,7 @@ public class Competence_GoalPlatform : MonoBehaviour
             if (player.IsGrounded())
             {
                 player.EndGame();
+                player = null;
                 gameManager.EndGame("competence");
             }
         }

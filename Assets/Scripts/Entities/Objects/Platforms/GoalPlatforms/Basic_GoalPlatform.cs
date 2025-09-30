@@ -20,6 +20,7 @@ public class Basic_GoalPlatform : MonoBehaviour
             if (player.IsGrounded())
             {
                 player.EndGame();
+                player = null;
                 gameManager.EndGame("basic");
             }
         }

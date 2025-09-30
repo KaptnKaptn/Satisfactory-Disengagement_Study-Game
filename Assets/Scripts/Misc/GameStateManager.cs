@@ -102,6 +102,11 @@ public class GameStateManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        gameManager.QuitGame();
+    }
+
+    public void LoadMenu()
+    {
+        gameManager.LoadMenu();
     }
 }

@@ -38,7 +38,7 @@ public class Player_Joystick : MonoBehaviour
 
     [Header("Jump")]
     public bool jumpPressed;
-
+    public bool jumpReleased;
     public float baseJumpHeight;
     public float maxJumpHeight;
     public float jumpHeightAccel;
@@ -156,6 +156,9 @@ public class Player_Joystick : MonoBehaviour
                 horizontalMovement = joystick.Horizontal;
                 verticalMovement = joystick.Vertical;
             }
+
+            horizontalMovement = joystick.Horizontal;
+            verticalMovement = joystick.Vertical;
         }
         #endregion
 
@@ -194,11 +197,11 @@ public class Player_Joystick : MonoBehaviour
 
         #region Jump
 
-        if (grounded && Input.GetKey(KeyCode.Space))
+        if (grounded && (jumpPressed || Input.GetKey(KeyCode.Space)))
         {
             if (jumpHeight < maxJumpHeight)
             {
-                jumpHeight += (Time.deltaTime * jumpHeightAccel);
+                jumpHeight += Time.deltaTime * jumpHeightAccel;
                 jumpChargeEffect.SetActive(true);
             }
             else
@@ -208,8 +211,9 @@ public class Player_Joystick : MonoBehaviour
             }
         }
 
-        if ((jumpPressed || Input.GetKeyUp(KeyCode.Space)) && lastJumpTime <= jumpCD)
+        if ((jumpReleased || Input.GetKeyUp(KeyCode.Space)) && lastJumpTime <= jumpCD)
         {
+            jumpPressed = false;
             jumpChargeEffect.SetActive(false);
             playerSprite.color = Color.white;
 
@@ -236,7 +240,7 @@ public class Player_Joystick : MonoBehaviour
             }
 
             jumpCount++;
-            jumpPressed = false;
+            jumpReleased = false;
             jumpHeight = baseJumpHeight;
         }
 
@@ -296,6 +300,14 @@ public class Player_Joystick : MonoBehaviour
         if (!respawning)
         {
             jumpPressed = true;
+        }
+    }
+
+    public void JumpRelease()
+    {
+        if (jumpPressed)
+        {
+            jumpReleased = true;
         }
     }
 
