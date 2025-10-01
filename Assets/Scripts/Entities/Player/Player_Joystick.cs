@@ -157,8 +157,8 @@ public class Player_Joystick : MonoBehaviour
                 verticalMovement = joystick.Vertical;
             }
 
-            horizontalMovement = joystick.Horizontal;
-            verticalMovement = joystick.Vertical;
+            //horizontalMovement = joystick.Horizontal;
+            //verticalMovement = joystick.Vertical;
         }
         #endregion
 
