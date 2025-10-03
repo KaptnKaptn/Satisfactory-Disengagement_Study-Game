@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b97e93300d680c84cb86367e507a1487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewBuffer: 2
+  platformID: 0
   doorOpen: {fileID: -10336760906426014, guid: 1b39c0fe73f0433468e25eb21cfde7c2, type: 3}
 --- !u!1 &8897814285793452036
 GameObject:
@@ -137,6 +139,7 @@ GameObject:
   - component: {fileID: 8292844445081422131}
   - component: {fileID: 2126985832829528600}
   - component: {fileID: 5288771250764601648}
+  - component: {fileID: 2613172543836387647}
   m_Layer: 9
   m_Name: Both_GoalPlatform
   m_TagString: Finish
@@ -257,3 +260,17 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &2613172543836387647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8897814285793452036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380e1fc6332386741a4f4a5a9777b3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewBuffer: 2
+  platformID: 0

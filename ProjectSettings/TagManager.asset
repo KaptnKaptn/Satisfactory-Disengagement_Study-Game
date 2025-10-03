@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Audio
   - NotRespawnable
+  - Platform
   layers:
   - Default
   - TransparentFX

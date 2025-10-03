@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Both_GoalPlatform : MonoBehaviour
+public class Both_GoalPlatform : Platform
 {
     private GameManager gameManager;
     private Player_Joystick player;

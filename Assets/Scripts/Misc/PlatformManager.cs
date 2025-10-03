@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformManager : MonoBehaviour
 {
@@ -135,6 +136,7 @@ public class PlatformManager : MonoBehaviour
 
         platforms.Add(platform);
         platformsGenerated++;
+        platform.GetComponent<Platform>().platformID = platformsGenerated;
     }
 
     private void CleanupDestroyedPlatforms()

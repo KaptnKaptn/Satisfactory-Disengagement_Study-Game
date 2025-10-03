@@ -95,6 +95,8 @@ public class Player_Joystick : MonoBehaviour
 
         gravityScale = rb.gravityScale;
         jumpHeight = baseJumpHeight;
+
+        currPlatform = null;
     }
 
     // Start is called before the first frame update
@@ -222,6 +224,8 @@ public class Player_Joystick : MonoBehaviour
                 Jump();
                 jumpAnimEffect.SetActive(true);
                 playerAnim.SetTrigger("jump");
+
+                gameManager.AddEventToLog("Jump");
             }
             else if (onWall && !wallJumped)
             {
@@ -231,12 +235,16 @@ public class Player_Joystick : MonoBehaviour
                 wallJumped = true;
                 wallJumpAnimEffect.SetActive(true);
                 playerAnim.SetTrigger("jump");
+
+                gameManager.AddEventToLog("WallJump");
             }
             else if (jumpCount < 2)
             {
                 Jump();
                 doubleJumpAnimEffect.SetActive(true);
                 playerAnim.SetTrigger("doubleJump");
+
+                gameManager.AddEventToLog("DoubleJump");
             }
 
             jumpCount++;
@@ -399,6 +407,8 @@ public class Player_Joystick : MonoBehaviour
     {
         if (gameObject.transform.position.y < currPlatform.transform.position.y - fallThreshold)
         {
+            gameManager.AddEventToLog("Death");
+
             Vector3 respawnPos = new Vector3(currPlatform.transform.position.x,
                                              currPlatform.transform.position.y + respawnOffset,
                                              currPlatform.transform.position.z);
@@ -456,6 +466,12 @@ public class Player_Joystick : MonoBehaviour
                 {
                     currPlatform = collision.gameObject;
                 }
+            }
+
+            if (currPlatform.tag != "Untagged")
+            {
+                Platform platform = currPlatform.GetComponent<Platform>();
+                gameManager.UpdateLatestPlatform(platform.platformID);
             }
         }
     }

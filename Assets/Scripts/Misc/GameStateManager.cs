@@ -42,11 +42,13 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameTime = Time.time;
+        gameTime = Time.timeSinceLevelLoad;
     }
 
     public void GameWon(string endType)
     {
+        gameManager.AddEventToLog("Finish");
+
         if (endType == "competence" || endType == "both")
         {
             score = gameManager.GetPlatformCount() * scoreMultiplier;

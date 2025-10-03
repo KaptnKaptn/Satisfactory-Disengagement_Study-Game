@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VerticalMovingPlatform : MonoBehaviour
+public class VerticalMovingPlatform : Platform
 {
-    public float viewBuffer = 0.5f;
+    //public float viewBuffer = 0.5f;
 
     [SerializeField] float speed;
     public float yOffset;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Basic_GoalPlatform : MonoBehaviour
+public class Basic_GoalPlatform : Platform
 {
     [Header("Basic Goal Platform")]
     private GameManager gameManager;

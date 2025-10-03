@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    private GameDataManger dataLogger;
+    public GameObject inputField;
+    public GameObject menuButton;
+    public TextMeshProUGUI playerIDInput;
 
     public LevelLoader levelLoader;
     public GameObject gameController;
@@ -42,6 +49,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        dataLogger = GameDataManger.instance;
+
+        if (dataLogger.HasID())
+        {
+            SkipIDInput();
+        }
+
         levelLoader = LevelLoader.instance;
 
         audioManager.StartMusic();
@@ -120,6 +134,7 @@ public class GameManager : MonoBehaviour
         levelLoader.StartGame();
         audioManager.StartMusic();
         gameStateManager.gameTime = 0;
+        Debug.Log("Time = 0 ?");
     }
 
     public void PlaySFX(string clip)
@@ -167,5 +182,32 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void SkipIDInput()
+    {
+        inputField.SetActive(false);
+        menuButton.SetActive(true);
+    }
+
+    public void SetPlayerID()
+    {
+        dataLogger.SetID(playerIDInput.text);
+
+    }
+
+    public void SetVersionCondition(string condition)
+    {
+        dataLogger.SetupVersion(condition);
+    }
+
+    public void UpdateLatestPlatform(int platformID)
+    {
+        dataLogger.SetLatestPlatform(platformID);
+    }
+
+    public void AddEventToLog(string eventType)
+    {
+        dataLogger.AddEvent(eventType, gameStateManager.gameTime);
     }
 }

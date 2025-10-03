@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalMovingPlatform : MonoBehaviour
+public class HorizontalMovingPlatform : Platform
 {
-    public float viewBuffer = 0.5f;
+    //public float viewBuffer = 0.5f;
 
     [SerializeField] float speed;
     public Vector2 xRange;

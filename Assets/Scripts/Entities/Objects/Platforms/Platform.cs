@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public float viewBuffer = 0.5f;
+    public float viewBuffer = 2f;
+    public int platformID;
 
     // Update is called once per frame
     void Update()
