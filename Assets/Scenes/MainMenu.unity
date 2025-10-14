@@ -4822,8 +4822,8 @@ MonoBehaviour:
   - {fileID: 8897814285793452036, guid: ab17a059320637f45a5119375aa9c355, type: 3}
   - {fileID: 8897814285793452036, guid: cf9edd9164a9c324c95b050b999096ea, type: 3}
   goalPrefab: {fileID: 0}
-  gameDurationInSec: 30
-  backgroundChangeThreshold: 50
+  gameDurationInSec: 300
+  backgroundChangeThreshold: 100
 --- !u!4 &2032354751
 Transform:
   m_ObjectHideFlags: 0

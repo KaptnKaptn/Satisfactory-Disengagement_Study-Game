@@ -1406,7 +1406,7 @@ MonoBehaviour:
   scoreWindow: {fileID: 1939736779}
   rightStar: {fileID: 992806346}
   scoreText: {fileID: 663754891}
-  scoreThreshold: 5000
+  scoreThreshold: 15000
   scoreMultiplier: 100
   cutsceneRoom: {fileID: 307313898}
   teleportPos: {x: -50, y: -55.321, z: 0}

@@ -38,7 +38,19 @@ public class CameraFollow : MonoBehaviour
         }
 
         playerYPos = player.position.y + playerOffset;
-        if (playerYPos != newPos.y && transform.position.y < maxPos.y && !gameEnd)
+
+        if (gameEnd)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            newPos.y = -50;
+            newPos.x = player.position.x + playerOffset / 2;
+        }
+
+        else if (playerYPos != newPos.y && transform.position.y < maxPos.y)
         {
             if (playerYPos > startPos.y)
             {
@@ -51,17 +63,13 @@ public class CameraFollow : MonoBehaviour
 
         }
 
+        else if (playerYPos < transform.position.y)
+        {
+            newPos.y = playerYPos;
+        }
+
         transform.position = newPos;
 
-        if (gameEnd)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(false);
-            }
 
-            newPos.y = -50;
-            newPos.x = player.position.x + playerOffset / 2;
-        }
     }
 }
