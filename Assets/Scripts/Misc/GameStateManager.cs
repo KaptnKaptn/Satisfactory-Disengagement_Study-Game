@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Playables;
 
+//manager handling the game states and the different version endings
 public class GameStateManager : MonoBehaviour
 {
     private GameManager gameManager;

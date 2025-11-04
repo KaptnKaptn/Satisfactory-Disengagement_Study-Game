@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+//manager handling the random platform and goal platform generation
 public class PlatformManager : MonoBehaviour
 {
     private GameManager gameManager;

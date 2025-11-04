@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Closure_GoalPlatform : Platform
 {
+    #region Components
     private GameManager gameManager;
     private Player_Joystick player;
+    #endregion
 
     [Header("Closure")]
     public Sprite doorOpen;
@@ -20,8 +22,10 @@ public class Closure_GoalPlatform : Platform
 
     void Update()
     {
+        #region Goal Condition
         if (player != null)
         {
+            //check if player is grounded on goal platform
             if (player.IsGrounded())
             {
                 player.EndGame();
@@ -30,6 +34,7 @@ public class Closure_GoalPlatform : Platform
                 player = null;
             }
         }
+        #endregion
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -39,7 +44,8 @@ public class Closure_GoalPlatform : Platform
             player = collision.GetComponent<Player_Joystick>();
         }
     }
-
+    
+    //remove player to stop goal condition
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")

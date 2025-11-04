@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine;
 
+//old legacy player movement script with different touch controls
 public class Player : MonoBehaviour
 {
     #region Player Component

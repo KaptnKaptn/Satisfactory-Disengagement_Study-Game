@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//manager handling the effects and UI behind a player respawn
 public class RespawnManager : MonoBehaviour
 {
     [Header("Player Respawn")]

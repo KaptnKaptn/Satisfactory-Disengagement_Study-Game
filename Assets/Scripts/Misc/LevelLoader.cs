@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//level loader for cleaner transitions allowing the game to load everything before starting
 public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader instance;

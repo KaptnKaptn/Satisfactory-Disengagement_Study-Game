@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+//manager handling the game data logged during a session
 public class GameDataManger : MonoBehaviour
 {
     public static GameDataManger instance;

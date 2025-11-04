@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
+//mediator between the different manager classes
+//handles the game's base logic
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
+        //Game Level
         if (level == 1)
         {
             gameController = GameObject.FindGameObjectWithTag("GameController");
@@ -73,10 +76,10 @@ public class GameManager : MonoBehaviour
             StartCoroutine(SetupGame());
         }
 
+        //Tutorial Level
         if (level == 2)
         {
             gameController = GameObject.FindGameObjectWithTag("GameController");
-            //platformManager = gameController.GetComponent<PlatformManager>();
             gameStateManager = gameController.GetComponent<GameStateManager>();
 
             audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();

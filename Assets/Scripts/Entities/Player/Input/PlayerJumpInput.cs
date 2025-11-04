@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//player jump input handler
 public class PlayerJumpInput : MonoBehaviour
 {
+    #region Touch Components
     private RectTransform touchArea;
     private Touch touch;
     private int trackedFingerID;
     private Player_Joystick player;
+    #endregion
 
     public bool charging;
 
@@ -22,6 +25,7 @@ public class PlayerJumpInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Jump Touch Check
         if (!charging)
         {
             if (Input.touchCount > 0)
@@ -37,6 +41,9 @@ public class PlayerJumpInput : MonoBehaviour
                 TouchCharge();
             }
         }
+        #endregion
+
+        #region Jump Release
         else
         {
             for (int i = 0; i < Input.touches.Length; i++)
@@ -49,6 +56,7 @@ public class PlayerJumpInput : MonoBehaviour
                 }
             }
         }
+        #endregion
     }
 
     private void TouchCharge()

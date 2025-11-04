@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//manager handling the game's background changes
 public class BackgroundManager : MonoBehaviour
 {
     private GameManager gameManager;

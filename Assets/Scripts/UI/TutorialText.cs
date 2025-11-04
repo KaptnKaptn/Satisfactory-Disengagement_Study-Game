@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//script handling the UI showing tutorial information through speech bubbles
 public class TutorialText : MonoBehaviour
 {
     public TextMeshProUGUI bubbleText;

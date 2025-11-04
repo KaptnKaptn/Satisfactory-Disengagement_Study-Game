@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+//script for the player respawn UI 
 public class FailSafe_SpeechBubble : MonoBehaviour
 {
     public TextMeshProUGUI bubbleText;
@@ -15,9 +16,11 @@ public class FailSafe_SpeechBubble : MonoBehaviour
     {
         bubbleText.text = string.Empty;
 
+        //get random wizard line
         int randomIndex = Random.Range(0, possibleLines.Count);
         string randomLine = possibleLines[randomIndex];
 
+        //type out line in speech bubble
         StartCoroutine(TypeLine(randomLine));
     }
 

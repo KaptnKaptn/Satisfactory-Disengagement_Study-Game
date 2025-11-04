@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//trigger to create logic on when certain tutorial text should appear
 public class TutorialTextTrigger : MonoBehaviour
 {
     public string text;

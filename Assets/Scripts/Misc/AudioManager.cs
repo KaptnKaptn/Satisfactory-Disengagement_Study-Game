@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//manager handling different background music and sfx in the game
 public class AudioManager : MonoBehaviour
 {
     [Header("Components")]
@@ -56,6 +57,8 @@ public class AudioManager : MonoBehaviour
     }
 }
 
+
+//custom dictonary object to help with audio clip saving and easier access through strings
 [Serializable]
 public class SerializableDict
 {

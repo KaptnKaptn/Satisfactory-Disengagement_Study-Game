@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+
+//player movement script
 public class Player_Joystick : MonoBehaviour
 {
     #region Player Component
@@ -88,6 +90,7 @@ public class Player_Joystick : MonoBehaviour
 
     void Awake()
     {
+        #region Player Setup
         rb = this.GetComponent<Rigidbody2D>();
         playerCollider = this.GetComponent<Collider2D>();
         playerAnim = this.GetComponent<Animator>();
@@ -97,6 +100,7 @@ public class Player_Joystick : MonoBehaviour
         jumpHeight = baseJumpHeight;
 
         currPlatform = null;
+        #endregion
     }
 
     // Start is called before the first frame update
@@ -144,23 +148,20 @@ public class Player_Joystick : MonoBehaviour
             PlayerFailSafety();
         }
         #endregion
-
+    
         #region Inputs
         if (!respawning)
         {
             if (Application.isEditor)
             {
                 horizontalMovement = Input.GetAxis("Horizontal");
-                verticalMovement = Input.GetAxis("Vertical");
+                verticalMovement = Input.GetAxis("Vertical");       //used to allow fast falling
             }
             else
             {
                 horizontalMovement = joystick.Horizontal;
-                verticalMovement = joystick.Vertical;
+                verticalMovement = joystick.Vertical;               //used to allow fast falling
             }
-
-            //horizontalMovement = joystick.Horizontal;
-            //verticalMovement = joystick.Vertical;
         }
         #endregion
 
@@ -199,6 +200,8 @@ public class Player_Joystick : MonoBehaviour
 
         #region Jump
 
+        //let the player hold down the jump button to increase the height
+        //notify once max charge reached
         if (grounded && (jumpPressed || Input.GetKey(KeyCode.Space)))
         {
             if (jumpHeight < maxJumpHeight)
@@ -213,12 +216,14 @@ public class Player_Joystick : MonoBehaviour
             }
         }
 
+        //release the corresponding jump mechanic
         if ((jumpReleased || Input.GetKeyUp(KeyCode.Space)) && lastJumpTime <= jumpCD)
         {
             jumpPressed = false;
             jumpChargeEffect.SetActive(false);
             playerSprite.color = Color.white;
 
+            //Jump
             if (!isJumping && lastGroundTime > 0)
             {
                 Jump();
@@ -227,6 +232,7 @@ public class Player_Joystick : MonoBehaviour
 
                 gameManager.AddEventToLog("Jump");
             }
+            //Wall Jump
             else if (onWall && !wallJumped)
             {
                 float wallDir = -Mathf.Sign(gameObject.transform.position.x);
@@ -238,6 +244,7 @@ public class Player_Joystick : MonoBehaviour
 
                 gameManager.AddEventToLog("WallJump");
             }
+            //Double Jump
             else if (jumpCount < 2)
             {
                 Jump();
@@ -254,7 +261,9 @@ public class Player_Joystick : MonoBehaviour
 
         #endregion
 
+        //adjust gravity for mechanics or too smooth out gameplay
         #region JumpGravity
+        //Respawn gravity
         if (respawning)
         {
             rb.gravityScale = 0;
@@ -262,18 +271,22 @@ public class Player_Joystick : MonoBehaviour
             movementSpeed = 0;
             targetSpeed = 0;
         }
+        //Wall slide gravity
         else if (isJumping && onWall && lastJumpTime <= jumpCD && rb.linearVelocity.y < 0)
         {
             rb.gravityScale = gravityScale * wallGravityMult;
         }
+        //Fast fall gravity
         else if (rb.linearVelocity.y < 0 && verticalMovement < 0)
         {
             rb.gravityScale = gravityScale * fastFallGravityMultiplier;
         }
+        //Jump hang gravity -> smoother jump apex
         else if (isJumping && Mathf.Abs(rb.linearVelocity.y) < jumpHangThreshold)
         {
             rb.gravityScale = gravityScale * jumpHangMultiplier;
         }
+        //Fall gravity -> smoother jump feel
         else if (rb.linearVelocity.y < 0)
         {
             rb.gravityScale = gravityScale * fallGravityMultiplier;
@@ -319,6 +332,7 @@ public class Player_Joystick : MonoBehaviour
         }
     }
 
+    //simple ground check 
     public bool IsGrounded()
     {
         Vector2 origin = new Vector2(
@@ -340,9 +354,11 @@ public class Player_Joystick : MonoBehaviour
 
     private void Run(float lerpAmount)
     {
+        //calculate target speed adjusted by current x-velocity
         targetSpeed = Mathf.Lerp(rb.linearVelocity.x, targetSpeed, lerpAmount);
         float acccelRate = 0f;
 
+        //differ between horizontal air and ground movement
         if (lastGroundTime > 0)
         {
             acccelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
@@ -352,13 +368,16 @@ public class Player_Joystick : MonoBehaviour
             acccelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accelInAir : deccelInAir;
         }
 
+        //create jump hang to smooth out the jump apex
         if (isJumping && Mathf.Abs(rb.linearVelocity.y) < jumpHangThreshold)
         {
             acccelRate *= jumpHangAccelMult;
             targetSpeed *= jumpHangMaxSpeedMult;
         }
 
+        //calculate speed increase needed to smooth out direction changes
         float speedDif = targetSpeed - rb.linearVelocity.x;
+        //calculate final movement speed 
         movementSpeed = speedDif * acccelRate;
     }
 
@@ -403,6 +422,7 @@ public class Player_Joystick : MonoBehaviour
         rb.AddForce(force, ForceMode2D.Impulse);
     }
 
+    //logic behind player respawn on death
     private void PlayerFailSafety()
     {
         if (gameObject.transform.position.y < currPlatform.transform.position.y - fallThreshold)
@@ -417,6 +437,7 @@ public class Player_Joystick : MonoBehaviour
         }
     }
 
+    //player death cutscene
     private IEnumerator PlayerTeleport(Vector3 respawnPos)
     {
         respawning = true;
@@ -445,6 +466,8 @@ public class Player_Joystick : MonoBehaviour
         respawning = true;
     }
 
+    //used to safe current highest platform to use in the respawn logic
+    //horizontal moving platforms not respawnable due to bugs
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == groundLayerIndex)

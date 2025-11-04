@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//short script to create effect animations used for the different player mechanics
 public class PlayerEffect : MonoBehaviour
 {
     public Sprite[] frames;
     public float frameTime = 0.1f;
     public Vector3 offSetToPlayer;
-    public bool looping;
+    public bool looping;            //is animation played only once or over a set time?
     private SpriteRenderer sr;
     private int currentFrame;
     private float timer;

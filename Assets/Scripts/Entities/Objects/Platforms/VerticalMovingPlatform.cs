@@ -5,24 +5,28 @@ using UnityEngine;
 
 public class VerticalMovingPlatform : Platform
 {
-    //public float viewBuffer = 0.5f;
-
+    #region Movement Variables
     [SerializeField] float speed;
     public float yOffset;
     private Vector2 startPos;
     private Vector2 goalPos;
     private Vector3 targetPos;
+    #endregion
+
+    #region Player Retainment Variables
     private bool playerPresent;
     private GameObject player;
     private Rigidbody2D playerRB;
+    #endregion
+    
 
     void Start()
     {
+        #region  Movement-Area calculation
         startPos = new Vector2(transform.position.x, transform.position.y - yOffset);
-
         goalPos = new Vector2(transform.position.x, transform.position.y + yOffset);
-
         targetPos = startPos;
+        #endregion
     }
 
     // Update is called once per frame

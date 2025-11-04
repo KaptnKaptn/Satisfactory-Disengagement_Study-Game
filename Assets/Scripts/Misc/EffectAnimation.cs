@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//short script to create effect animations for the game seperate from the player
 public class EffectAnimation : MonoBehaviour
 {
     public Sprite[] frames;

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class HorizontalMovingPlatform : Platform
 {
-    //public float viewBuffer = 0.5f;
-
+    [Header("Movement variables")]
     [SerializeField] float speed;
     public Vector2 xRange;
     public float xPos;
@@ -14,16 +13,20 @@ public class HorizontalMovingPlatform : Platform
     private float xGoalPos;
     private Vector2 goalPos;
     private Vector3 targetPos;
+
+    #region Player Retainment Variables 
     private bool playerPresent;
     private GameObject player;
     private Rigidbody2D playerRB;
+    #endregion
 
     void Start()
     {
+        #region Movement-Area calculation
         startPos = new Vector2(xPos, transform.position.y);
-
         xGoalPos = (xPos < 0) ? xRange.y : xRange.x;
         goalPos = new Vector2(xGoalPos, transform.position.y);
+        #endregion
     }
 
     // Update is called once per frame
@@ -41,7 +44,6 @@ public class HorizontalMovingPlatform : Platform
         #endregion
 
         #region Platform Movement
-
         if (Vector2.Distance(transform.position, startPos) < 0.01f)
         {
             targetPos = goalPos;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//camera movement script
 public class CameraFollow : MonoBehaviour
 {
     [Header("Player Follow")]
@@ -29,6 +30,7 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Max Height Calculation
         goalPlatform = GameObject.FindGameObjectWithTag("Finish");
 
         if (goalPlatform != null)
@@ -36,7 +38,9 @@ public class CameraFollow : MonoBehaviour
             maxPos = goalPlatform.transform.position;
             maxPos.y -= goalOffset;
         }
+        #endregion
 
+        #region Player Follow
         playerYPos = player.position.y + playerOffset;
 
         if (gameEnd)
@@ -69,7 +73,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         transform.position = newPos;
-
+        #endregion
 
     }
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Competence_GoalPlatform : Platform
 {
+    #region Components
     private GameManager gameManager;
     private Player_Joystick player;
+    #endregion
 
 
     void Awake()
@@ -15,8 +17,10 @@ public class Competence_GoalPlatform : Platform
 
     void Update()
     {
+        #region Goal Condition
         if (player != null)
         {
+            //check if player is grounded on goal platform
             if (player.IsGrounded())
             {
                 player.EndGame();
@@ -24,6 +28,7 @@ public class Competence_GoalPlatform : Platform
                 gameManager.EndGame("competence");
             }
         }
+        #endregion
     }
 
     void OnTriggerEnter2D(Collider2D collision)
