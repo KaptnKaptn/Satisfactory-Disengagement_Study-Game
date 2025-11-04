@@ -188,9 +188,9 @@ public class Player_Joystick : MonoBehaviour
         if (grounded && horizontalMovement == 0)
         {
             //use either friction amount or the players current velocity
-            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
+            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x), Mathf.Abs(frictionAmount));
             //adjust to the current movement direction
-            amount *= Mathf.Sign(rb.velocity.x);
+            amount *= Mathf.Sign(rb.linearVelocity.x);
             //applies force against the current movement direction
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }
@@ -258,23 +258,23 @@ public class Player_Joystick : MonoBehaviour
         if (respawning)
         {
             rb.gravityScale = 0;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             movementSpeed = 0;
             targetSpeed = 0;
         }
-        else if (isJumping && onWall && lastJumpTime <= jumpCD && rb.velocity.y < 0)
+        else if (isJumping && onWall && lastJumpTime <= jumpCD && rb.linearVelocity.y < 0)
         {
             rb.gravityScale = gravityScale * wallGravityMult;
         }
-        else if (rb.velocity.y < 0 && verticalMovement < 0)
+        else if (rb.linearVelocity.y < 0 && verticalMovement < 0)
         {
             rb.gravityScale = gravityScale * fastFallGravityMultiplier;
         }
-        else if (isJumping && Mathf.Abs(rb.velocity.y) < jumpHangThreshold)
+        else if (isJumping && Mathf.Abs(rb.linearVelocity.y) < jumpHangThreshold)
         {
             rb.gravityScale = gravityScale * jumpHangMultiplier;
         }
-        else if (rb.velocity.y < 0)
+        else if (rb.linearVelocity.y < 0)
         {
             rb.gravityScale = gravityScale * fallGravityMultiplier;
         }
@@ -286,7 +286,7 @@ public class Player_Joystick : MonoBehaviour
 
         #region Animations
         Vector3 direction = transform.localScale;
-        if (Mathf.Sign(direction.x) != Mathf.Sign(rb.velocity.x) && rb.velocity.x != 0)
+        if (Mathf.Sign(direction.x) != Mathf.Sign(rb.linearVelocity.x) && rb.linearVelocity.x != 0)
         {
             direction.x *= -1;
             transform.localScale = direction;
@@ -334,13 +334,13 @@ public class Player_Joystick : MonoBehaviour
             checkDistance,
             groundLayer
         );
-        return hit.collider != null && rb.velocity.y == 0;
+        return hit.collider != null && rb.linearVelocity.y == 0;
     }
 
 
     private void Run(float lerpAmount)
     {
-        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpAmount);
+        targetSpeed = Mathf.Lerp(rb.linearVelocity.x, targetSpeed, lerpAmount);
         float acccelRate = 0f;
 
         if (lastGroundTime > 0)
@@ -352,13 +352,13 @@ public class Player_Joystick : MonoBehaviour
             acccelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accelInAir : deccelInAir;
         }
 
-        if (isJumping && Mathf.Abs(rb.velocity.y) < jumpHangThreshold)
+        if (isJumping && Mathf.Abs(rb.linearVelocity.y) < jumpHangThreshold)
         {
             acccelRate *= jumpHangAccelMult;
             targetSpeed *= jumpHangMaxSpeedMult;
         }
 
-        float speedDif = targetSpeed - rb.velocity.x;
+        float speedDif = targetSpeed - rb.linearVelocity.x;
         movementSpeed = speedDif * acccelRate;
     }
 
@@ -369,9 +369,9 @@ public class Player_Joystick : MonoBehaviour
         lastJumpTime = 0f;
 
         float force = jumpHeight;
-        if (rb.velocity.y < 0)
+        if (rb.linearVelocity.y < 0)
         {
-            force -= rb.velocity.y;
+            force -= rb.linearVelocity.y;
         }
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
@@ -390,14 +390,14 @@ public class Player_Joystick : MonoBehaviour
         force.x *= dir;
         force.x *= forceMult;
 
-        if (Mathf.Sign(rb.velocity.x) != Mathf.Sign(force.x))
+        if (Mathf.Sign(rb.linearVelocity.x) != Mathf.Sign(force.x))
         {
-            force.x -= rb.velocity.x;
+            force.x -= rb.linearVelocity.x;
         }
 
-        if (Mathf.Sign(rb.velocity.y) < 0)
+        if (Mathf.Sign(rb.linearVelocity.y) < 0)
         {
-            force.y -= rb.velocity.y;
+            force.y -= rb.linearVelocity.y;
         }
 
         rb.AddForce(force, ForceMode2D.Impulse);
@@ -436,7 +436,7 @@ public class Player_Joystick : MonoBehaviour
     {
         playerAnim.SetBool("running", targetSpeed != 0);
         playerAnim.SetBool("onWall", onWall && !grounded && !respawning);
-        playerAnim.SetBool("falling", rb.velocity.y <= -jumpHangThreshold);
+        playerAnim.SetBool("falling", rb.linearVelocity.y <= -jumpHangThreshold);
         playerAnim.SetBool("grounded", grounded);
     }
 

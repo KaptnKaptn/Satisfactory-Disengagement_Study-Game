@@ -64,7 +64,7 @@ public class HorizontalMovingPlatform : Platform
 
             if (playerPresent)
             {
-                if (playerRB.velocity == Vector2.zero)
+                if (playerRB.linearVelocity == Vector2.zero)
                 {
                     player.transform.parent = this.transform;
                 }
